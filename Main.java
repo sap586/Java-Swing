@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
 
 class Test {
     public static void main(String[] args) {
@@ -15,10 +17,11 @@ class Test {
     }
 }
 
-class A extends JFrame implements ActionListener {
+class A extends JFrame implements ActionListener, ItemListener {
     JTextField t1, t2;
     JButton b;
     JRadioButton r1, r2;
+    JCheckBox c1, c2;
     JLabel l;
     ButtonGroup bg = new ButtonGroup();
     A() {
@@ -28,15 +31,21 @@ class A extends JFrame implements ActionListener {
         l = new JLabel("Result");
         r1 = new JRadioButton("Add");
         r2 = new JRadioButton("Sub");
+        c1 = new JCheckBox("Box1");
+        c2 = new JCheckBox("Box2");
         bg.add(r1);
         bg.add(r2);
         b.addActionListener(this);
+        c1.addItemListener(this);
+        c2.addItemListener(this);
         add(t1);
         add(t2);
         add(b);
         add(l);
         add(r1);
         add(r2);
+        add(c1);
+        add(c2);
         
         setLayout(new FlowLayout());
         setVisible(true);
@@ -56,5 +65,14 @@ class A extends JFrame implements ActionListener {
             return;
         }
         l.setText(c + "");
+    }
+    public void itemStateChanged(ItemEvent e) {
+        if (c1.isSelected()) {
+            System.out.println("c1 changed");
+        } else if (c2.isSelected()) {
+            System.out.println("c2 changed");
+        } else {
+            System.out.println(".");
+        }
     }
 }
